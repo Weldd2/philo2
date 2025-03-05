@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 15:46:42 by antoinemura       #+#    #+#             */
+/*   Updated: 2025/03/05 15:46:42 by antoinemura      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	philo_print(t_philo philo, char *msg)
@@ -42,7 +54,8 @@ void	*philo_lifecycle(void *void_philo)
 	{
 		philo_eat(philo);
 		meal_counter++;
-		if (philo->data->meal_goal != 0 && meal_counter == philo->data->meal_goal)
+		if (philo->data->meal_goal != 0
+			&& meal_counter == philo->data->meal_goal)
 		{
 			set_stop_flag(philo->data, true);
 			break ;

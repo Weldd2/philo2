@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 15:47:41 by antoinemura       #+#    #+#             */
+/*   Updated: 2025/03/05 15:47:41 by antoinemura      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	throw_params_count(void)
@@ -23,9 +35,9 @@ void	throw_mutex_init(t_mgc mgc)
 	exit(EXIT_FAILURE);
 }
 
-void	throw_alloc_failed(t_mgc mgc)
+void	throw_thread_create(t_mgc mgc)
 {
-	perror("memory allocation failed");
+	perror("thread create failed");
 	mgc_free(mgc);
 	exit(EXIT_FAILURE);
 }
@@ -33,5 +45,9 @@ void	throw_alloc_failed(t_mgc mgc)
 void	try_alloc(t_mgc mgc, void *ptr)
 {
 	if (!ptr)
-		throw_alloc_failed(mgc);
+	{
+		perror("memory allocation failed");
+		mgc_free(mgc);
+		exit(EXIT_FAILURE);
+	}
 }

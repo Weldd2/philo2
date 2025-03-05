@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:04:32 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 15:10:30 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/03/05 15:37:40 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ typedef struct s_mgc
 {
 	struct s_mgc_block_list	*first;
 	struct s_mgc_block_list	*last;
-}	t_mgc_, *t_mgc;
+}	t_mgc_;
+
+typedef t_mgc_*	t_mgc;
 
 t_mgc		mgc_init(void);
 void		*mgc_alloc(t_mgc mgc, size_t size, size_t nb_elem);
