@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 20:38:09 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 12:40:18 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/03/05 15:10:54 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_mgc	mgc_init(void)
 {
 	t_mgc	mgc;
 
-	mgc = malloc(sizeof(t_mgc));
+	mgc = malloc(sizeof(t_mgc_));
 	if (!mgc)
 		return (NULL);
 	mgc->first = NULL;

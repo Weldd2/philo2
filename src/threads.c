@@ -64,7 +64,6 @@ void	start_threads(t_params params)
 	data = data_init(mgc, params);
 	philos = mgc_alloc(mgc, sizeof(t_philo), params.nb_philo);
 	forks = forks_init(mgc, params.nb_philo);
-	// TODO init forks
 	while ((int)index < params.nb_philo)
 	{
 		philos[index] = philo_init(mgc, data, index);

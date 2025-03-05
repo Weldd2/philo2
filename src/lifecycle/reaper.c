@@ -16,8 +16,8 @@ void	*reaper_lifecycle(void *void_philos)
 		{
 			if (get_stop_flag(data))
 				return (NULL);
-			set_stop_flag(data, true);
 			philo_print(philos[index], "died");
+			set_stop_flag(data, true);
 			return (NULL);
 		}
 		index++;

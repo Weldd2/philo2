@@ -3,7 +3,8 @@
 void	philo_print(t_philo philo, char *msg)
 {
 	pthread_mutex_lock(&philo->data->mprint);
-	printf("%lld %d %s\n", get_timestamp(), philo->index, msg);
+	if (!get_stop_flag(philo->data))
+		printf("%lld %d %s\n", get_timestamp(), philo->index, msg);
 	pthread_mutex_unlock(&philo->data->mprint);
 }
 
