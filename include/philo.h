@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:39:13 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 15:39:14 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/03/05 16:56:54 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ typedef struct s_philo
 	int			index;
 	int			meal_count;
 	t_thread	thread;
-	t_mutex		left_fork;
-	t_mutex		right_fork;
+	t_mutex		*left_fork;
+	t_mutex		*right_fork;
 	t_data		data;
 	t_timestamp	last_meal_time;
 	t_mutex		mlast_meal_time;

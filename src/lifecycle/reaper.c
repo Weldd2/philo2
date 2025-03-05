@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:46:52 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 15:46:52 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/03/05 16:04:47 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*reaper_lifecycle(void *void_philos)
 	data = philos[0]->data;
 	while (index < data->nb_philo)
 	{
-		usleep(100);
+		usleep(1000);
 		if (get_timestamp() >= get_meal_time(philos[index]) + data->time_to_die)
 		{
 			if (get_stop_flag(data))

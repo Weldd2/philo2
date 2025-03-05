@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:46:42 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 15:46:42 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/03/05 16:01:15 antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,23 @@ void	philo_eat(t_philo philo)
 {
 	if (philo->index % 2 == 0)
 	{
-		pthread_mutex_lock(&philo->left_fork);
+		pthread_mutex_lock(philo->left_fork);
 		philo_print(philo, "is taking a fork");
-		pthread_mutex_lock(&philo->right_fork);
+		pthread_mutex_lock(philo->right_fork);
 		philo_print(philo, "is taking a fork");
 	}
 	else
 	{
-		pthread_mutex_lock(&philo->right_fork);
+		pthread_mutex_lock(philo->right_fork);
 		philo_print(philo, "is taking a fork");
-		pthread_mutex_lock(&philo->left_fork);
+		pthread_mutex_lock(philo->left_fork);
 		philo_print(philo, "is taking a fork");
 	}
 	philo_print(philo, "is eating");
 	set_meal_time(philo, get_timestamp());
 	usleep(philo->data->time_to_eat * 1000);
-	pthread_mutex_unlock(&philo->left_fork);
-	pthread_mutex_unlock(&philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 }
 
 void	*philo_lifecycle(void *void_philo)

@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:40:42 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 15:45:23 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/03/05 16:09:50 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	start_philos(t_mgc mgc, t_data data, t_philo *philos, t_mutex *forks)
 	while ((int)index < data->nb_philo)
 	{
 		philos[index] = philo_init(mgc, data, index);
-		philos[index]->left_fork = forks[index];
-		philos[index]->right_fork = forks[(index + 1) % data->nb_philo];
+		philos[index]->left_fork = &forks[index];
+		philos[index]->right_fork =&forks[(index + 1) % data->nb_philo];
 		if (pthread_create(&(philos[index]->thread), NULL, \
 				philo_lifecycle, philos[index]) != 0)
 			throw_thread_create(mgc);

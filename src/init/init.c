@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:45:43 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 15:46:18 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/03/05 15:45:55antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_mutex	*forks_init(t_mgc mgc, int nb_forks)
 	size_t	index;
 
 	index = 0;
-	forks = mgc_alloc(mgc, sizeof(t_mutex), nb_forks);
+	forks = mgc_alloc(mgc, sizeof(t_mutex), nb_forks);	
 	try_alloc(mgc, forks);
 	while ((int)index < nb_forks)
 	{
