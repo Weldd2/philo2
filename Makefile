@@ -74,7 +74,7 @@ $(OBJDIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 gdb:
-	gdb --args ./philo 1 1000 100 3 10
+	gdb --args ./philo 5 800 200 200 7
 
 # -----------------------------------------------------------------------------
 # Nettoyage des fichiers objets

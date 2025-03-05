@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:39:13 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 16:56:54 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/03/05 17:50:50 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,20 @@ typedef struct s_data
 
 typedef t_data_*		t_data;
 
+typedef struct s_fork
+{
+	t_mutex	fork;
+	bool	is_free;
+	t_mutex	mis_free;
+}	t_fork;
+
 typedef struct s_philo
 {
 	int			index;
 	int			meal_count;
 	t_thread	thread;
-	t_mutex		*left_fork;
-	t_mutex		*right_fork;
+	t_fork		*left_fork;
+	t_fork		*right_fork;
 	t_data		data;
 	t_timestamp	last_meal_time;
 	t_mutex		mlast_meal_time;
@@ -67,6 +74,7 @@ void		*reaper_lifecycle(void *void_philos);
 void		philo_print(t_philo philo, char *msg);
 t_philo		philo_init(t_mgc mgc, t_data data, int index);
 t_data		data_init(t_mgc mgc, t_params params);
-t_mutex		*forks_init(t_mgc mgc, int nb_forks);
+// t_mutex		*forks_init(t_mgc mgc, int nb_forks);
+t_fork		*forks_init(t_mgc mgc, int nb_forks);
 
 #endif

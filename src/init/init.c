@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 15:45:43 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 15:45:55antoinemura      ###   ########.fr       */
+/*   Created: 2025/03/05 17:40:14 by antoinemura       #+#    #+#             */
+/*   Updated: 2025/03/05 17:43:32 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,20 @@ t_data	data_init(t_mgc mgc, t_params params)
 	return (data);
 }
 
-t_mutex	*forks_init(t_mgc mgc, int nb_forks)
+t_fork	*forks_init(t_mgc mgc, int nb_forks)
 {
-	t_mutex	*forks;
+	t_fork	*forks;
 	size_t	index;
 
 	index = 0;
-	forks = mgc_alloc(mgc, sizeof(t_mutex), nb_forks);	
+	forks = mgc_alloc(mgc, sizeof(t_fork), nb_forks);	
 	try_alloc(mgc, forks);
 	while ((int)index < nb_forks)
 	{
-		if (pthread_mutex_init(&forks[index], NULL) != 0)
+		forks[index].is_free = true;
+		if (pthread_mutex_init(&(forks[index].fork), NULL) != 0)
+			throw_mutex_init(mgc);
+		if (pthread_mutex_init(&(forks[index].mis_free), NULL) != 0)
 			throw_mutex_init(mgc);
 		index++;
 	}

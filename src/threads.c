@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:40:42 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 16:09:50 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/03/05 17:51:31 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	threads_join(t_data data, t_philo *philos, t_thread reaper)
 	pthread_join(reaper, NULL);
 }
 
-void	start_philos(t_mgc mgc, t_data data, t_philo *philos, t_mutex *forks)
+void	start_philos(t_mgc mgc, t_data data, t_philo *philos, t_fork *forks)
 {
 	size_t	index;
 
@@ -34,7 +34,7 @@ void	start_philos(t_mgc mgc, t_data data, t_philo *philos, t_mutex *forks)
 	{
 		philos[index] = philo_init(mgc, data, index);
 		philos[index]->left_fork = &forks[index];
-		philos[index]->right_fork =&forks[(index + 1) % data->nb_philo];
+		philos[index]->right_fork = &forks[(index + 1) % data->nb_philo];
 		if (pthread_create(&(philos[index]->thread), NULL, \
 				philo_lifecycle, philos[index]) != 0)
 			throw_thread_create(mgc);
@@ -47,7 +47,7 @@ void	manage_threads(t_params params)
 	t_philo		*philos;
 	t_data		data;
 	t_mgc		mgc;
-	t_mutex		*forks;
+	t_fork		*forks;
 	t_thread	reaper;
 
 	mgc = mgc_init();

@@ -20,27 +20,36 @@ void	philo_print(t_philo philo, char *msg)
 	pthread_mutex_unlock(&philo->data->mprint);
 }
 
+bool	can_take_forks(t_philo philo)
+{
+	bool	r;
+
+	pthread_mutex_lock(&philo->left_fork->mis_free);
+	pthread_mutex_lock(&philo->right_fork->mis_free);
+	r = philo->left_fork->is_free && philo->right_fork->is_free;
+	if (!r)
+	{
+		pthread_mutex_unlock(&philo->left_fork->mis_free);
+		pthread_mutex_unlock(&philo->right_fork->mis_free);
+	}
+	return (r);
+}
+
 void	philo_eat(t_philo philo)
 {
-	if (philo->index % 2 == 0)
-	{
-		pthread_mutex_lock(philo->left_fork);
-		philo_print(philo, "is taking a fork");
-		pthread_mutex_lock(philo->right_fork);
-		philo_print(philo, "is taking a fork");
-	}
-	else
-	{
-		pthread_mutex_lock(philo->right_fork);
-		philo_print(philo, "is taking a fork");
-		pthread_mutex_lock(philo->left_fork);
-		philo_print(philo, "is taking a fork");
-	}
+	while (!can_take_forks(philo))
+		usleep(10);
+	pthread_mutex_lock(&philo->right_fork->fork);
+	philo_print(philo, "is taking his right fork");
+	pthread_mutex_lock(&philo->left_fork->fork);
+	philo_print(philo, "is taking his left fork");
 	philo_print(philo, "is eating");
 	set_meal_time(philo, get_timestamp());
 	usleep(philo->data->time_to_eat * 1000);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(&philo->left_fork->mis_free);
+	pthread_mutex_unlock(&philo->right_fork->mis_free);
+	pthread_mutex_unlock(&philo->left_fork->fork);
+	pthread_mutex_unlock(&philo->right_fork->fork);
 }
 
 void	*philo_lifecycle(void *void_philo)
