@@ -14,12 +14,13 @@
 
 typedef pthread_mutex_t t_mutex;
 typedef pthread_t t_thread;
-typedef u_int64_t t_timestamp;
+typedef long long int t_timestamp;
 
 typedef struct s_data
 {
 	t_mutex	mstop_flag;
 	bool	stop_flag;
+	t_mutex	mprint;
 	size_t	meal_goal;
 	int		nb_philo;
 	int		time_to_die;
@@ -47,5 +48,6 @@ bool		get_stop_flag(t_data data);
 void		set_meal_time(t_philo philo, t_timestamp timestamp);
 t_timestamp	get_meal_time(t_philo philo);
 void		*reaper_lifecycle(void *void_philos);
+void		philo_print(t_philo philo, char *msg);
 
 #endif

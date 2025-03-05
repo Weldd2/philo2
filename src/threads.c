@@ -29,6 +29,8 @@ t_data	data_init(t_mgc mgc, t_params params)
 	data->stop_flag = false;
 	if (pthread_mutex_init(&data->mstop_flag, NULL) != 0)
 		throw_mutex_init(mgc);
+	if (pthread_mutex_init(&data->mprint, NULL) != 0)
+		throw_mutex_init(mgc);
 	return (data);
 }
 
@@ -80,5 +82,6 @@ void	start_threads(t_params params)
 		index++;
 	}
 	pthread_join(reaper, NULL);
+	mgc_free(mgc);
 	return ;
 }

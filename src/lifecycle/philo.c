@@ -1,24 +1,31 @@
 #include "philo.h"
 
+void	philo_print(t_philo philo, char *msg)
+{
+	pthread_mutex_lock(&philo->data->mprint);
+	printf("%lld %d %s\n", get_timestamp(), philo->index, msg);
+	pthread_mutex_unlock(&philo->data->mprint);
+}
+
 void	philo_eat(t_philo philo)
 {
 	if (philo->index % 2 == 0)
 	{
 		pthread_mutex_lock(&philo->left_fork);
-		printf("%lld %d is taking a fork\n", get_timestamp(), philo->index);
+		philo_print(philo, "is taking a fork");
 		pthread_mutex_lock(&philo->right_fork);
-		printf("%lld %d is taking a fork\n", get_timestamp(), philo->index);
+		philo_print(philo, "is taking a fork");
 	}
 	else
 	{
 		pthread_mutex_lock(&philo->right_fork);
-		printf("%lld %d is taking a fork\n", get_timestamp(), philo->index);
+		philo_print(philo, "is taking a fork");
 		pthread_mutex_lock(&philo->left_fork);
-		printf("%lld %d is taking a fork\n", get_timestamp(), philo->index);
+		philo_print(philo, "is taking a fork");
 	}
-	printf("%lld %d is eating\n", get_timestamp(), philo->index);
+	philo_print(philo, "is eating");
 	set_meal_time(philo, get_timestamp());
-	usleep(philo->data->time_to_eat *  1000);
+	usleep(philo->data->time_to_eat * 1000);
 	pthread_mutex_unlock(&philo->left_fork);
 	pthread_mutex_unlock(&philo->right_fork);
 }
@@ -39,10 +46,9 @@ void	*philo_lifecycle(void *void_philo)
 			set_stop_flag(philo->data, true);
 			break ;
 		}
-		printf("%lld %d is sleeping\n", get_timestamp(), philo->index);
-		usleep(philo->data->time_to_sleep *  1000);
-		printf("%lld %d is thinking\n", get_timestamp(), philo->index);
+		philo_print(philo, "is sleeping");
+		usleep(philo->data->time_to_sleep * 1000);
+		philo_print(philo, "is thinking");
 	}
-	// doing nothing
 	return (NULL);
 }
