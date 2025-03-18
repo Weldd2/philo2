@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:39:13 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 18:16:22 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/03/18 14:56:08 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef t_philo_*		t_philo;
 t_timestamp	get_timestamp(void);
 void		manage_threads(t_params params);
 void		*philo_lifecycle(void *void_philo);
+void		*single_philo_lifecycle(void *void_philo);
 void		set_stop_flag(t_data data, bool value);
 bool		get_stop_flag(t_data data);
 void		set_meal_time(t_philo philo, t_timestamp timestamp);
@@ -74,7 +75,6 @@ void		*reaper_lifecycle(void *void_philos);
 void		philo_print(t_philo philo, char *msg);
 t_philo		philo_init(t_mgc mgc, t_data data, int index);
 t_data		data_init(t_mgc mgc, t_params params);
-// t_mutex		*forks_init(t_mgc mgc, int nb_forks);
 t_fork		*forks_init(t_mgc mgc, int nb_forks);
 
 #endif

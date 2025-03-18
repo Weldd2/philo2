@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:40:42 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 17:51:31 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/03/18 15:33:53 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	threads_join(t_data data, t_philo *philos, t_thread reaper)
 		pthread_join(philos[index]->thread, NULL);
 		index++;
 	}
-	pthread_join(reaper, NULL);
+	if (reaper != NULL)
+		pthread_join(reaper, NULL);
 }
 
 void	start_philos(t_mgc mgc, t_data data, t_philo *philos, t_fork *forks)
@@ -42,6 +43,16 @@ void	start_philos(t_mgc mgc, t_data data, t_philo *philos, t_fork *forks)
 	}
 }
 
+void	start_philo(t_mgc mgc, t_data data, t_philo *philos, t_fork *forks)
+{
+	philos[0] = philo_init(mgc, data, 0);
+	philos[0]->left_fork = &forks[0];
+	philos[0]->right_fork = &forks[1];
+	if (pthread_create(&(philos[0]->thread), NULL, \
+			single_philo_lifecycle, philos[0]) != 0)
+		throw_thread_create(mgc);
+}
+
 void	manage_threads(t_params params)
 {
 	t_philo		*philos;
@@ -54,8 +65,16 @@ void	manage_threads(t_params params)
 	data = data_init(mgc, params);
 	philos = mgc_alloc(mgc, sizeof(t_philo), params.nb_philo);
 	forks = forks_init(mgc, params.nb_philo);
-	start_philos(mgc, data, philos, forks);
-	pthread_create(&(reaper), NULL, reaper_lifecycle, philos);
+	if (data && data->nb_philo == 1)
+	{
+		start_philo(mgc, data, philos, forks);
+		reaper = NULL;
+	}
+	else
+	{
+		start_philos(mgc, data, philos, forks);
+		pthread_create(&(reaper), NULL, reaper_lifecycle, philos);
+	}
 	threads_join(data, philos, reaper);
 	mgc_free(mgc);
 	return ;

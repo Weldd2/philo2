@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:16:31 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 18:16:32 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/03/18 14:55:47 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,18 @@ void	philo_eat(t_philo philo)
 	pthread_mutex_unlock(&philo->right_fork->mis_free);
 	pthread_mutex_unlock(&philo->left_fork->fork);
 	pthread_mutex_unlock(&philo->right_fork->fork);
+}
+
+void	*single_philo_lifecycle(void *void_philo)
+{
+	t_philo	philo;
+
+	philo = (t_philo)void_philo;
+	pthread_mutex_lock(&philo->left_fork->fork);
+	philo_print(philo, "is taking his right fork");
+	usleep(philo->data->time_to_die * 1000);
+	philo_print(philo, "died");
+	return (NULL);
 }
 
 void	*philo_lifecycle(void *void_philo)
