@@ -105,7 +105,7 @@ install:
 # Règles de debug, valgrind
 # -----------------------------------------------------------------------------
 VALGRIND_FLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes
-TEST_ARGUMENTS = 5 800 200 200 7
+TEST_ARGUMENTS = 2 800 100 100 100
 
 valgrind: CFLAGS += -g
 valgrind: re

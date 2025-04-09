@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:40:42 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/18 15:43:02 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/04/10 01:42:33 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	threads_join(t_data data, t_philo *philos, t_thread reaper)
 		pthread_join(philos[index]->thread, NULL);
 		index++;
 	}
-	if (reaper == 0)
-		pthread_join(reaper, NULL);
+	pthread_join(reaper, NULL);
 }
 
 void	start_philos(t_mgc mgc, t_data data, t_philo *philos, t_fork *forks)
