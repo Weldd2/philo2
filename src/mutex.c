@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:47:29 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/04/10 15:51:08 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/04/10 22:30:48 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,19 @@ void	set_stop_flag(t_data data, bool value)
 
 bool	get_stop_flag(t_data data)
 {
-	bool	val;
+	static bool			cached_value = false;
+	static t_timestamp	last_check = 0;
+	t_timestamp			current;
 
-	pthread_mutex_lock(&data->mstop_flag);
-	val = data->stop_flag;
-	pthread_mutex_unlock(&data->mstop_flag);
-	return (val);
+	current = get_timestamp();
+	if (current - last_check > 5 || cached_value)
+	{
+		pthread_mutex_lock(&data->mstop_flag);
+		cached_value = data->stop_flag;
+		pthread_mutex_unlock(&data->mstop_flag);
+		last_check = current;
+	}
+	return (cached_value);
 }
 
 void	increment_finished_count(t_data data)

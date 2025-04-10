@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:39:13 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/04/10 15:46:38 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/04/10 22:25:58 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ typedef t_data_*		t_data;
 typedef struct s_fork
 {
 	t_mutex	fork;
-	bool	is_free;
-	t_mutex	mis_free;
 }	t_fork;
 
 typedef struct s_philo
@@ -79,5 +77,6 @@ t_philo		philo_init(t_mgc mgc, t_data data, int index);
 t_data		data_init(t_mgc mgc, t_params params);
 t_fork		*forks_init(t_mgc mgc, int nb_forks);
 void		increment_finished_count(t_data data);
+void		ft_msleep(int ms);
 
 #endif

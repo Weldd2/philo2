@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:40:14 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/04/10 15:43:40 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/04/10 18:13:57 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ t_fork	*forks_init(t_mgc mgc, int nb_forks)
 	try_alloc(mgc, forks);
 	while ((int)index < nb_forks)
 	{
-		forks[index].is_free = true;
 		if (pthread_mutex_init(&(forks[index].fork), NULL) != 0)
-			throw_mutex_init(mgc);
-		if (pthread_mutex_init(&(forks[index].mis_free), NULL) != 0)
 			throw_mutex_init(mgc);
 		index++;
 	}

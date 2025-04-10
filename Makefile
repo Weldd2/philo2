@@ -105,14 +105,14 @@ install:
 # Règles de debug, valgrind
 # -----------------------------------------------------------------------------
 VALGRIND_FLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes
-TEST_ARGUMENTS = 2 800 100 100 100
+TEST_ARGUMENTS = 4 410 200 200 80
 
 valgrind: CFLAGS += -g
 valgrind: re
 	valgrind $(VALGRIND_FLAGS) ./$(NAME) $(TEST_ARGUMENTS)
 
 helgrind: CFLAGS += -g
-helgrind: VALGRIND_FLAGS = --tool=helgrind
+helgrind: VALGRIND_FLAGS = --quiet --tool=helgrind
 helgrind: re
 	valgrind $(VALGRIND_FLAGS) ./$(NAME) $(TEST_ARGUMENTS)
 

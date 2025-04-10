@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:47:41 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 15:47:41 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/04/10 17:59:17 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	throw_params_count(void)
 {
-	printf("Usage: ./philo <nb_philo> <time_to_die> <time_to_eat> "
+	fprintf(stderr, "Usage: ./philo <nb_philo> <time_to_die> <time_to_eat> "
 		"<time_to_sleep> [<philo meal goal>]\n"
 		"Times are expressed in milliseconds.\n");
 	exit(EXIT_FAILURE);
@@ -22,7 +22,7 @@ void	throw_params_count(void)
 
 void	throw_params_value(void)
 {
-	printf("Usage: ./philo <nb_philo> <time_to_die> <time_to_eat> "
+	fprintf(stderr, "Usage: ./philo <nb_philo> <time_to_die> <time_to_eat> "
 		"<time_to_sleep> [<philo meal goal>]\n"
 		"Values must be stricly positive.\n");
 	exit(EXIT_FAILURE);
