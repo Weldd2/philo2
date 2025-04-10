@@ -1,16 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   reaper.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 15:46:52 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 17:57:29 by antoinemura      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "philo.h"
+
+static bool	_has_to_stop(t_data data)
+{
+	bool	has_to_stop;
+
+	pthread_mutex_lock(&data->mfinished_count);
+	has_to_stop = (data->finished_count == data->nb_philo);
+	pthread_mutex_unlock(&data->mfinished_count);
+	return (has_to_stop);
+}
 
 void	*reaper_lifecycle(void *void_philos)
 {
@@ -26,12 +24,12 @@ void	*reaper_lifecycle(void *void_philos)
 		usleep(100);
 		if (get_timestamp() >= get_meal_time(philos[index]) + data->time_to_die)
 		{
-			if (get_stop_flag(data))
-				return (NULL);
 			philo_print(philos[index], "died");
 			set_stop_flag(data, true);
 			return (NULL);
 		}
+		if (_has_to_stop(data))
+			set_stop_flag(data, true);
 		index++;
 		index %= data->nb_philo;
 	}

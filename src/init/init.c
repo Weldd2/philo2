@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:40:14 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 18:17:06 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/04/10 15:43:40 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ t_data	data_init(t_mgc mgc, t_params params)
 	data->time_to_die = params.time_to_die;
 	data->time_to_eat = params.time_to_eat;
 	data->time_to_sleep = params.time_to_sleep;
+	data->finished_count = 0;
 	data->stop_flag = false;
+	if (pthread_mutex_init(&data->mfinished_count, NULL) != 0)
+		throw_mutex_init(mgc);
 	if (pthread_mutex_init(&data->mstop_flag, NULL) != 0)
 		throw_mutex_init(mgc);
 	if (pthread_mutex_init(&data->mprint, NULL) != 0)

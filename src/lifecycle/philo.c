@@ -6,19 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:16:31 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/18 14:55:47 by antoinemura      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 15:46:42 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 16:01:15 antoinemura      ###   ########.fr       */
+/*   Updated: 2025/04/10 15:44:39 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +20,19 @@ void	philo_print(t_philo philo, char *msg)
 	pthread_mutex_unlock(&philo->data->mprint);
 }
 
-bool	can_take_forks(t_philo philo)
+bool can_take_forks(t_philo philo)
 {
-	bool	r;
+	bool r;
 
 	pthread_mutex_lock(&philo->left_fork->mis_free);
 	pthread_mutex_lock(&philo->right_fork->mis_free);
 	r = philo->left_fork->is_free && philo->right_fork->is_free;
-	if (!r)
+	if (r)
+	{
+		philo->left_fork->is_free = false;
+		philo->right_fork->is_free = false;
+	}
+	else
 	{
 		pthread_mutex_unlock(&philo->left_fork->mis_free);
 		pthread_mutex_unlock(&philo->right_fork->mis_free);
@@ -47,22 +40,25 @@ bool	can_take_forks(t_philo philo)
 	return (r);
 }
 
-void	philo_eat(t_philo philo)
+void philo_eat(t_philo philo)
 {
 	while (!can_take_forks(philo))
 		usleep(10);
 	pthread_mutex_lock(&philo->right_fork->fork);
-	philo_print(philo, "is taking his right fork");
+	philo_print(philo, "has taken a fork");
 	pthread_mutex_lock(&philo->left_fork->fork);
-	philo_print(philo, "is taking his left fork");
+	philo_print(philo, "has taken a fork");
 	philo_print(philo, "is eating");
 	set_meal_time(philo, get_timestamp());
 	usleep(philo->data->time_to_eat * 1000);
+	philo->left_fork->is_free = true;
+	philo->right_fork->is_free = true;
 	pthread_mutex_unlock(&philo->left_fork->mis_free);
 	pthread_mutex_unlock(&philo->right_fork->mis_free);
 	pthread_mutex_unlock(&philo->left_fork->fork);
 	pthread_mutex_unlock(&philo->right_fork->fork);
 }
+
 
 void	*single_philo_lifecycle(void *void_philo)
 {

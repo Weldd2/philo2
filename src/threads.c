@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:40:42 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/04/10 01:42:33 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/04/10 15:40:56 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	manage_threads(t_params params)
 	data = data_init(mgc, params);
 	philos = mgc_alloc(mgc, sizeof(t_philo), params.nb_philo);
 	forks = forks_init(mgc, params.nb_philo);
-	reaper = 1;
 	start_philos(mgc, data, philos, forks);
 	pthread_create(&(reaper), NULL, reaper_lifecycle, philos);
 	threads_join(data, philos, reaper);

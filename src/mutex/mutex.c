@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:47:29 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/05 15:47:29 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/04/10 15:51:08 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ bool	get_stop_flag(t_data data)
 	val = data->stop_flag;
 	pthread_mutex_unlock(&data->mstop_flag);
 	return (val);
+}
+
+void	increment_finished_count(t_data data)
+{
+	pthread_mutex_lock(&data->mfinished_count);
+	data->finished_count++;
+	pthread_mutex_unlock(&data->mfinished_count);
 }
 
 void	set_meal_time(t_philo philo, t_timestamp timestamp)

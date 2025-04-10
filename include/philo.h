@@ -6,7 +6,7 @@
 /*   By: antoinemura <antoinemura@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:39:13 by antoinemura       #+#    #+#             */
-/*   Updated: 2025/03/18 14:56:08 by antoinemura      ###   ########.fr       */
+/*   Updated: 2025/04/10 15:46:38 by antoinemura      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_data
 	t_mutex	mstop_flag;
 	bool	stop_flag;
 	t_mutex	mprint;
+	t_mutex	mfinished_count;
+	int		finished_count;
 	size_t	meal_goal;
 	int		nb_philo;
 	int		time_to_die;
@@ -76,5 +78,6 @@ void		philo_print(t_philo philo, char *msg);
 t_philo		philo_init(t_mgc mgc, t_data data, int index);
 t_data		data_init(t_mgc mgc, t_params params);
 t_fork		*forks_init(t_mgc mgc, int nb_forks);
+void		increment_finished_count(t_data data);
 
 #endif
